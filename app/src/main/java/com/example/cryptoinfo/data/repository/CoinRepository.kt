@@ -37,6 +37,13 @@ class CoinRepository @Inject constructor(
                         reason = e
                     )
                 )
+            } catch (e: Exception) {
+                emit(
+                    Resource.Failure(
+                        message = e.localizedMessage ?: "An unexpected error occurred.",
+                        reason = e
+                    )
+                )
             }
         }
     }
