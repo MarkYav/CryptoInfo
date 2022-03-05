@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class CoinRepository(
+class CoinRepository @Inject constructor(
     private val api: CoinPaprikaApi
 ) {
 
