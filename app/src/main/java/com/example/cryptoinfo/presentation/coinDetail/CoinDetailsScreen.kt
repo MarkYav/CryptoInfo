@@ -23,7 +23,7 @@ import com.google.accompanist.flowlayout.FlowRow
 fun CoinDetailScreen(
     viewModel: CoinDetailViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state
+    val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
         state.coin?.let { coin ->
             LazyColumn(

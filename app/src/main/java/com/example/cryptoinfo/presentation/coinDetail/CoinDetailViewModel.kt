@@ -1,5 +1,6 @@
 package com.example.cryptoinfo.presentation.coinDetail
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -22,8 +23,8 @@ class CoinDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private var _state by mutableStateOf(CoinDetailUiState())
-    val state: CoinDetailUiState = _state
+    private var _state = mutableStateOf(CoinDetailUiState())
+    val state: State<CoinDetailUiState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
@@ -35,13 +36,13 @@ class CoinDetailViewModel @Inject constructor(
         coinRepository.getCoinById(coinId = coinId).onEach { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    _state = CoinDetailUiState(coin = resource.data)
+                    _state.value = CoinDetailUiState(coin = resource.data)
                 }
                 is Resource.Failure -> {
-                    _state = CoinDetailUiState(error = resource.message)
+                    _state.value = CoinDetailUiState(error = resource.message)
                 }
                 Resource.Loading -> {
-                    _state = _state.copy(isLoading = true)
+                    _state.value = _state.value.copy(isLoading = true)
                 }
 
             }.exhaustive

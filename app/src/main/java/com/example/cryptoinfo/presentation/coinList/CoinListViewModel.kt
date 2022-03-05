@@ -19,8 +19,8 @@ class CoinListViewModel @Inject constructor(
     private val coinRepository: CoinRepository
 ) : ViewModel() {
 
-    private var _state by mutableStateOf(CoinListUiState())
-    val state: CoinListUiState = _state
+    private var _state = mutableStateOf(CoinListUiState())
+    val state: State<CoinListUiState> = _state
 
     init {
         getCoins()
@@ -30,13 +30,13 @@ class CoinListViewModel @Inject constructor(
         coinRepository.getCoins().onEach { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    _state = CoinListUiState(coins = resource.data)
+                    _state.value = CoinListUiState(coins = resource.data)
                 }
                 is Resource.Failure -> {
-                    _state = CoinListUiState(error = resource.message)
+                    _state.value = CoinListUiState(error = resource.message)
                 }
                 Resource.Loading -> {
-                    _state = _state.copy(isLoading = true)
+                    _state.value = _state.value.copy(isLoading = true)
                 }
 
             }.exhaustive

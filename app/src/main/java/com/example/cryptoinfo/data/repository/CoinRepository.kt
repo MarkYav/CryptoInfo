@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.Exception
 import javax.inject.Inject
 
 class CoinRepository @Inject constructor(
@@ -57,6 +58,20 @@ class CoinRepository @Inject constructor(
                 emit(
                     Resource.Failure(
                         message = "Couldn't reach server. Check your internet connection.",
+                        reason = e
+                    )
+                )
+            } catch (e: NullPointerException) {
+                emit(
+                    Resource.Failure(
+                        message = "No data about this coin. Try again later.",
+                        reason = e
+                    )
+                )
+            } catch (e: Exception) {
+                emit(
+                    Resource.Failure(
+                        message = e.localizedMessage ?: "An unexpected error occurred.",
                         reason = e
                     )
                 )
