@@ -23,8 +23,11 @@ class CoinDetailViewModel @Inject constructor(
     private var _state = mutableStateOf(CoinDetailUiState())
     val state: State<CoinDetailUiState> = _state
 
+    private var coinId: String? = null
+
     init {
         savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
+            this.coinId = coinId
             getCoin(coinId = coinId)
         }
     }
@@ -33,17 +36,23 @@ class CoinDetailViewModel @Inject constructor(
         coinDetailRepository.getCoinById(coinId = coinId).onEach { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    _state.value = CoinDetailUiState(coin = resource.data)
+                    _state.value = CoinDetailUiState(coinDetail = resource.data)
                 }
                 is Resource.Failure -> {
                     _state.value = CoinDetailUiState(error = resource.message)
                 }
                 Resource.Loading -> {
-                    _state.value = _state.value.copy(isLoading = true)
+                    _state.value = _state.value.copy(isLoading = true, error = "")
                 }
 
             }.exhaustive
         }.launchIn(viewModelScope)
+    }
+
+    fun refresh() {
+        coinId?.let {
+            getCoin(it)
+        }
     }
 
 }

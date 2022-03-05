@@ -4,6 +4,6 @@ import com.example.cryptoinfo.coinDetail.model.CoinDetail
 
 data class CoinDetailUiState(
     val isLoading: Boolean = false,
-    val coin: CoinDetail? = null,
+    val coinDetail: CoinDetail? = null,
     val error: String = ""
 )
