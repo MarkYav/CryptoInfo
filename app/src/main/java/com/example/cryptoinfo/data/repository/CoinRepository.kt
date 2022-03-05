@@ -40,7 +40,7 @@ class CoinRepository @Inject constructor(
         }
     }
 
-    suspend fun getCoinById(coinId: String): Flow<Resource<CoinDetail>> {
+    fun getCoinById(coinId: String): Flow<Resource<CoinDetail>> {
         return flow {
             try {
                 emit(Resource.Loading)
