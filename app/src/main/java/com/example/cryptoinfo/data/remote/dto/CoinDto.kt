@@ -15,7 +15,7 @@ data class CoinDto(
     val type: String
 )
 
-fun CoinDto.map(): Coin {
+fun CoinDto.mapToCoin(): Coin {
     return Coin(
         id = id,
         isActive = isActive,
