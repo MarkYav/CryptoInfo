@@ -5,14 +5,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.cryptoinfo.coinList.presentation.components.CoinListItem
-import com.example.cryptoinfo.common.components.ErrorMessage
+import com.example.cryptoinfo.common.components.ErrorMessageTop
 import com.example.cryptoinfo.main.Screen
 
 @Composable
@@ -26,7 +23,7 @@ fun CoinListScreen(
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
         if (state.error.isNotBlank()) {
-            ErrorMessage(
+            ErrorMessageTop(
                 errorMessage = state.error,
                 onRefresh = viewModel::getCoins
             )

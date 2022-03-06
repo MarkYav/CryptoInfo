@@ -10,16 +10,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.cryptoinfo.coinDetail.presentation.components.CoinTag
 import com.example.cryptoinfo.coinDetail.presentation.components.Header
 import com.example.cryptoinfo.coinDetail.presentation.components.TeamListItem
-import com.example.cryptoinfo.common.components.ErrorMessage
-import com.google.accompanist.flowlayout.FlowRow
+import com.example.cryptoinfo.common.components.ErrorMessageCentre
+import com.example.cryptoinfo.common.components.ErrorMessageTop
 
 @Composable
 fun CoinDetailScreen(
@@ -53,7 +49,8 @@ fun CoinDetailScreen(
             }
         }
         if (state.error.isNotBlank()) {
-            ErrorMessage(
+            ErrorMessageCentre(
+                modifier = Modifier.align(Alignment.Center),
                 errorMessage = state.error,
                 onRefresh = viewModel::refresh
             )
