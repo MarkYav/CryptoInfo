@@ -1,6 +1,6 @@
 package com.example.cryptoinfo.coinList.data.remote
 
-import com.example.cryptoinfo.coinList.data.remote.dto.CoinDto
+import com.example.cryptoinfo.coinList.data.dto.CoinDto
 import retrofit2.http.GET
 
 interface CoinListPaprikaApi {

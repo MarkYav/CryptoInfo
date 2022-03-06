@@ -1,9 +1,13 @@
-package com.example.cryptoinfo.coinList.data.remote.dto
+package com.example.cryptoinfo.coinList.data.dto
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.cryptoinfo.coinList.model.Coin
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class CoinDto(
+    @PrimaryKey
     val id: String,
     @SerializedName("is_active")
     val isActive: Boolean,

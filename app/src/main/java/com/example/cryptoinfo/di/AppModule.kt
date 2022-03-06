@@ -1,6 +1,10 @@
 package com.example.cryptoinfo.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.cryptoinfo.coinDetail.data.remote.CoinDetailPaprikaApi
+import com.example.cryptoinfo.coinList.data.local.CoinDtoDao
+import com.example.cryptoinfo.coinList.data.local.CoinDtoDatabase
 import com.example.cryptoinfo.coinList.data.remote.CoinListPaprikaApi
 import com.example.cryptoinfo.common.Constants
 import dagger.Module
@@ -33,6 +37,26 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CoinListPaprikaApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinDtoDao(
+        coinDtoDatabase: CoinDtoDatabase
+    ): CoinDtoDao {
+        return coinDtoDatabase.dao
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinDtoDatabase(
+        app: Application
+    ): CoinDtoDatabase {
+        return Room.databaseBuilder(
+            app,
+            CoinDtoDatabase::class.java,
+            "coin_dto_database"
+        ).build()
     }
 
 }

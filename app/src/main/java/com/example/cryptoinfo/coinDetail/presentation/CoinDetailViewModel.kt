@@ -41,7 +41,7 @@ class CoinDetailViewModel @Inject constructor(
                 is Resource.Failure -> {
                     _state.value = CoinDetailUiState(error = resource.message)
                 }
-                Resource.Loading -> {
+                is Resource.Loading -> {
                     _state.value = _state.value.copy(isLoading = true, error = "")
                 }
 

@@ -54,7 +54,6 @@ fun CoinDetailScreen(
         }
         if (state.error.isNotBlank()) {
             ErrorMessage(
-                modifier = Modifier.align(Alignment.Center),
                 errorMessage = state.error,
                 onRefresh = viewModel::refresh
             )

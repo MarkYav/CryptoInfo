@@ -18,12 +18,13 @@ class CoinDetailRepository @Inject constructor(
     fun getCoinById(coinId: String): Flow<Resource<CoinDetail>> {
         return flow {
             try {
-                emit(Resource.Loading)
+                emit(Resource.Loading(data = null))
                 val coin = api.getCoinById(coinId = coinId).mapToCoinDetail()
                 emit(Resource.Success(coin))
             } catch (e: HttpException) {
                 emit(
                     Resource.Failure(
+                        data = null,
                         message = e.localizedMessage ?: "An unexpected error occurred.",
                         reason = e
                     )
@@ -31,6 +32,7 @@ class CoinDetailRepository @Inject constructor(
             } catch (e: IOException) {
                 emit(
                     Resource.Failure(
+                        data = null,
                         message = "Couldn't reach server. Check your internet connection.",
                         reason = e
                     )
@@ -38,6 +40,7 @@ class CoinDetailRepository @Inject constructor(
             } catch (e: NullPointerException) {
                 emit(
                     Resource.Failure(
+                        data = null,
                         message = "No data about this coin. Try again later.",
                         reason = e
                     )
@@ -45,6 +48,7 @@ class CoinDetailRepository @Inject constructor(
             } catch (e: Exception) {
                 emit(
                     Resource.Failure(
+                        data = null,
                         message = e.localizedMessage ?: "An unexpected error occurred.",
                         reason = e
                     )
